@@ -31,7 +31,7 @@ class CryptoCurrencyViewModel:ObservableObject {
                     for data in marketData.data!{
                         is20Record = true
                         if data.symbol == "BTC"{
-                            isRed = (data.quote!.usd?.volumeChange24H!)! < 0.0 ? true : false
+                            isRed = (data.quote!.usd?.isPercentageChange24HNegative())! ? true : false
                             bitCoinData = data
                         }
                         else if bitCoinDataRecords.count < 20{
@@ -88,8 +88,10 @@ class CryptoCurrencyViewModel:ObservableObject {
        isFilterByPrice = false
        isFilterByVolume24h = false
         if !bitCoinDataRecords.isEmpty{
-            bitCoinDataRecords =
+           let records =
             bitCoinDataRecords.sorted { $0.cmcRank! < $1.cmcRank! }
+            bitCoinDataRecords.removeAll()
+            bitCoinDataRecords = records
         }
     }
     func filterByPrice(){
@@ -98,7 +100,9 @@ class CryptoCurrencyViewModel:ObservableObject {
        isFilterByVolume24h = false
         if !bitCoinDataRecords.isEmpty{
             
-            bitCoinDataRecords = bitCoinDataRecords.sorted { ($0.quote?.usd?.price!)! < ($1.quote?.usd?.price!)! }
+            let records  = bitCoinDataRecords.sorted { ($0.quote?.usd?.price!)! < ($1.quote?.usd?.price!)! }
+            bitCoinDataRecords.removeAll()
+            bitCoinDataRecords = records
         }
     }
     func filterByVolume24H(){
@@ -107,7 +111,9 @@ class CryptoCurrencyViewModel:ObservableObject {
        isFilterByVolume24h = true
         if !bitCoinDataRecords.isEmpty{
             
-            bitCoinDataRecords = bitCoinDataRecords.sorted { ($0.quote?.usd?.volumeChange24H!)! < ($1.quote?.usd?.volumeChange24H!)! }
+            let records  = bitCoinDataRecords.sorted { ($0.quote?.usd?.volumeChange24H!)! < ($1.quote?.usd?.volumeChange24H!)! }
+            bitCoinDataRecords.removeAll()
+            bitCoinDataRecords = records
         }
     }
 }

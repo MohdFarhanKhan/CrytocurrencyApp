@@ -87,8 +87,8 @@ struct ContentView: View {
     @ObservedObject var viewModel: CryptoCurrencyViewModel = CryptoCurrencyViewModel()
     @State var searchText = ""
     
-    @State var gColor: Color = Color(red: 229.0/255, green: 250.0/255, blue: 230.0/255, opacity: 0.4)
-    @State var rColor: Color = Color(red: 252/255, green: 61/255, blue: 1/255, opacity: 0.4)
+    @State var gColor: Color = Color(red: 229.0/255, green: 250.0/255, blue: 230.0/255, opacity: 0.6)
+    @State var rColor: Color = Color(red: 252/255, green: 61/255, blue: 1/255, opacity: 0.5)
    
     var body: some View {
         VStack {

@@ -87,10 +87,7 @@ final class HttpUtility {
             }
             
             do {
-                let str = String(decoding: data, as: UTF8.self)
-                print("Data is")
-                print(str)
-                print("Data done")
+               
                 let decodedResponse =  try JSONDecoder().decode(LatestListing.self, from: data)
                
                 self.executeCompletionHandlerInMainThread(with: .success(decodedResponse), completion: completion)
