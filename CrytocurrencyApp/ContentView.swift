@@ -14,9 +14,9 @@ struct ListCellView: View {
         HStack{
            
             iconView(marketData: marketData)
-                .frame(width: 50, height: 50)
-                .padding(.leading,15)
-           
+                .frame(width: 55, height: 55)
+                .padding(.leading,0)
+           Spacer()
             
         VStack{
             Text(marketData.symbol!)
@@ -26,21 +26,23 @@ struct ListCellView: View {
                 .font(.subheadline)
         }
         .padding(.leading, 5)
-            Image((marketData.quote?.usd?.volumeChange24H!)! < 0.0 ? "redWave" :  "greenWave")
+            Spacer()
+            Image((marketData.quote?.usd?.isPercentageChange24HNegative())!  ? "redWave" :  "greenWave")
                 .frame(width: 80)
                
-       
+            Spacer()
            
         VStack{
             Text((marketData.quote?.usd?.getPrice())!)
                 .font(.headline)
                 .font(Font.body.bold())
-                .padding(.trailing)
+               
             Text((marketData.quote?.usd?.getPercentageChange24H())!)
                 .font(.subheadline)
-                .foregroundStyle((marketData.quote?.usd?.volumeChange24H!)! < 0.0 ? Color.red :  Color.green)
+                .foregroundStyle((marketData.quote?.usd?.isPercentageChange24HNegative())! ? Color.red :  Color.green)
                 
         }
+            Spacer()
        
     }
         
@@ -49,29 +51,36 @@ struct ListCellView: View {
 struct iconView: View {
     
     @State var  marketData: MarketData
-    @ObservedObject var imageLoader = ImageLoader()
+   // @ObservedObject var imageLoader = ImageLoader()
     
     var body: some View {
         VStack(alignment: .leading) {
             ZStack {
-                Rectangle()
-                    .fill(Color.gray.opacity(0.3))
+                  if let url = self.marketData.getIconURL(){
+                    RemoteImage(url: url.absoluteString)
+                   
+                        .overlay(Circle().stroke((marketData.quote?.usd!.isPercentageChange24HNegative())! ? Color.red : Color.green, lineWidth: 4))
+                        .padding(.leading, 0)
+                        
+                    }
                 
-                if self.imageLoader.image != nil {
-                    Image(uiImage: self.imageLoader.image!)
-                        .resizable()
-                }
+         
             }
             .aspectRatio(16/9, contentMode: .fit)
             .cornerRadius(8)
             .shadow(radius: 4)
         }
-        .lineLimit(1)
-        .onAppear {
-            if let url = self.marketData.getIconURL(){
-                self.imageLoader.loadImage(with: url)
-            }
-        }
+      
+//        .onChange(of: marketData) { newValue in
+//            if let url = self.marketData.getIconURL(){
+//                self.imageLoader.loadImage(with: url)
+//            }
+//                    }
+//        .onAppear {
+//            if let url = self.marketData.getIconURL(){
+//                self.imageLoader.loadImage(with: url)
+//            }
+//        }
     }
 }
 struct ContentView: View {
@@ -141,9 +150,9 @@ struct ContentView: View {
                     HStack{
                         if viewModel.bitCoinData != nil{
                             iconView(marketData: viewModel.bitCoinData!)
-                            .frame(width: 50, height: 50)
+                            .frame(width: 55, height: 55)
                             .padding(.leading,15)
-                        }
+                             }
                         
                     VStack{
                         Text(viewModel.bitCoinData?.symbol ?? "No bitcoin data")
@@ -163,7 +172,8 @@ struct ContentView: View {
                                   
                                 Text(usdData.getPercentageChange24H())
                                     .font(.subheadline)
-                                    .foregroundStyle(viewModel.isRed ? Color.red : Color.green)
+                                
+                                    .foregroundStyle(usdData.isPercentageChange24HNegative() ? Color.red : Color.green)
                                     
                             }
                             
@@ -193,7 +203,8 @@ struct ContentView: View {
                 ScrollView(.vertical){
                     ForEach((1...(viewModel.bitCoinDataRecords.count )), id: \.self) { indx in
                         ListCellView(marketData: viewModel.bitCoinDataRecords[indx-1])
-                            .frame( height: 100)
+                            .frame( height: 90)
+                            .padding(.leading, 5)
                     }
                 }
             }
@@ -266,9 +277,6 @@ struct ContentView: View {
             .frame(width: 390, height: 80)
             .background(.black)
               .cornerRadius(15)
-
-           
-           
            
         }
         .padding()

@@ -47,7 +47,7 @@ final class HttpUtility {
        
     }
     
-    func getLatestCryptographyDats( completion: @escaping (Result<LatestListing, APIDataError>) -> ()) {
+    func getLatestCryptocurrencyData( completion: @escaping (Result<LatestListing, APIDataError>) -> ()) {
      
         guard let url = URL(string: "\(baseAPIURL)/listings/latest?CMC_PRO_API_KEY=\(apiKey)") else {
             completion(.failure(.invalidEndpoint))

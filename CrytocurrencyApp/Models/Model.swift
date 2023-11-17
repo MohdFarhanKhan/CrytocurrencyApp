@@ -25,7 +25,11 @@ struct LatestListing: Codable {
 }
 
 // MARK: - Datum
-struct MarketData: Codable {
+struct MarketData: Codable,Equatable {
+    static func == (lhs: MarketData, rhs: MarketData) -> Bool {
+        return true
+    }
+    
     let id: Int?
     let name, symbol, slug: String?
     let numMarketPairs: Int?
@@ -172,6 +176,18 @@ struct Usd: Codable {
             return String(format: "$%.2f USD", price)
         }
        return "No Price"
+    }
+    func isPercentageChange24HNegative()->Bool{
+        if let percentage = self.percentChange24H{
+            if percentage >= 0{
+               
+                return false
+            }
+            else{
+                return true
+            }
+        }
+        return false
     }
     func getPercentageChange24H()->String{
         if let percentage = self.percentChange24H{

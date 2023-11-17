@@ -21,8 +21,8 @@ class CryptoCurrencyViewModel:ObservableObject {
     @Published var isFilterByVolume24h = false
     var error : APIDataError?
     func getCrypytoCurrencyData(){
-        
-        HttpUtility.shared.getLatestCryptographyDats { [self] result in
+       
+        HttpUtility.shared.getLatestCryptocurrencyData { [self] result in
             switch result{
             case .success(let response):
                 latestListingData = response
