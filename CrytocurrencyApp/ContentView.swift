@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import NukeUI
+
 
 struct ListCellView: View {
     @State var viewModel: CryptoCurrencyViewModel
