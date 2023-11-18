@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct LatestListing: Codable {
     let status: Status?
@@ -25,7 +26,7 @@ struct LatestListing: Codable {
 }
 
 // MARK: - Datum
-struct MarketData: Codable,Equatable {
+struct MarketData: Codable,Equatable , Identifiable{
     static func == (lhs: MarketData, rhs: MarketData) -> Bool {
         return true
     }

@@ -17,7 +17,7 @@
 		7B8875012B05EC3A00126CD0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8875002B05EC3A00126CD0 /* Model.swift */; };
 		7B8875042B05F1AE00126CD0 /* HTTPUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8875032B05F1AE00126CD0 /* HTTPUtility.swift */; };
 		7B8875072B06011800126CD0 /* CryptoCurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8875062B06011800126CD0 /* CryptoCurrencyViewModel.swift */; };
-		7BF84B182B07CB9E0083723E /* ImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF84B172B07CB9E0083723E /* ImageLoading.swift */; };
+		7BF84B1B2B08D7FA0083723E /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7BF84B1A2B08D7FA0083723E /* NukeUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,6 @@
 		7B8875002B05EC3A00126CD0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		7B8875032B05F1AE00126CD0 /* HTTPUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPUtility.swift; sourceTree = "<group>"; };
 		7B8875062B06011800126CD0 /* CryptoCurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyViewModel.swift; sourceTree = "<group>"; };
-		7BF84B172B07CB9E0083723E /* ImageLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoading.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF84B1B2B08D7FA0083723E /* NukeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +142,6 @@
 		7B8874FB2B05EA1400126CD0 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				7BF84B172B07CB9E0083723E /* ImageLoading.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -187,6 +186,9 @@
 			dependencies = (
 			);
 			name = CrytocurrencyApp;
+			packageProductDependencies = (
+				7BF84B1A2B08D7FA0083723E /* NukeUI */,
+			);
 			productName = CrytocurrencyApp;
 			productReference = 7B8874CE2B05E68700126CD0 /* CrytocurrencyApp.app */;
 			productType = "com.apple.product-type.application";
@@ -259,6 +261,9 @@
 				Base,
 			);
 			mainGroup = 7B8874C52B05E68700126CD0;
+			packageReferences = (
+				7BF84B192B08D7FA0083723E /* XCRemoteSwiftPackageReference "NukeUI" */,
+			);
 			productRefGroup = 7B8874CF2B05E68700126CD0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -304,7 +309,6 @@
 				7B8874D42B05E68800126CD0 /* ContentView.swift in Sources */,
 				7B8875042B05F1AE00126CD0 /* HTTPUtility.swift in Sources */,
 				7B8874D22B05E68800126CD0 /* CrytocurrencyAppApp.swift in Sources */,
-				7BF84B182B07CB9E0083723E /* ImageLoading.swift in Sources */,
 				7B8875072B06011800126CD0 /* CryptoCurrencyViewModel.swift in Sources */,
 				7B8875012B05EC3A00126CD0 /* Model.swift in Sources */,
 			);
@@ -630,6 +634,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7BF84B192B08D7FA0083723E /* XCRemoteSwiftPackageReference "NukeUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/NukeUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7BF84B1A2B08D7FA0083723E /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BF84B192B08D7FA0083723E /* XCRemoteSwiftPackageReference "NukeUI" */;
+			productName = NukeUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7B8874C62B05E68700126CD0 /* Project object */;
 }

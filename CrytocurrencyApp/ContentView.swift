@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct ListCellView: View {
-    
+    @State var viewModel: CryptoCurrencyViewModel
     @State var marketData: MarketData
     var body: some View {
         HStack{
@@ -27,8 +28,11 @@ struct ListCellView: View {
         }
         .padding(.leading, 5)
             Spacer()
-            Image((marketData.quote?.usd?.isPercentageChange24HNegative())!  ? "redWave" :  "greenWave")
-                .frame(width: 80)
+            if let usd = marketData.quote?.usd{
+                Image( usd.isPercentageChange24HNegative()  ? "redWave" :  "greenWave")
+                    .frame(width: 80)
+            }
+           
                
             Spacer()
            
@@ -45,22 +49,48 @@ struct ListCellView: View {
             Spacer()
        
     }
-        
+        .onTapGesture {
+            if viewModel != nil{
+                viewModel.selectMarketData(marketData: marketData)
+            }
+        }
+       
     }
 }
 struct iconView: View {
     
-    @State var  marketData: MarketData
-   // @ObservedObject var imageLoader = ImageLoader()
-    
+     @State var  marketData: MarketData
+   
+    @State var imgURL :URL?
+ 
+   
     var body: some View {
         VStack(alignment: .leading) {
             ZStack {
-                  if let url = self.marketData.getIconURL(){
-                    RemoteImage(url: url.absoluteString)
+                if self.imgURL != nil {
+                    AsyncImage(url: self.imgURL) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                    case .failure:
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundColor(.red)
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                    .frame(width: 55, height: 55)
                    
-                        .overlay(Circle().stroke((marketData.quote?.usd!.isPercentageChange24HNegative())! ? Color.red : Color.green, lineWidth: 4))
-                        .padding(.leading, 0)
+                    .overlay(Circle().stroke((marketData.quote?.usd!.isPercentageChange24HNegative())! ? Color.red : Color.green, lineWidth: 4))
+                    .padding(.leading,5)
+                     
+                        
                         
                     }
                 
@@ -71,21 +101,24 @@ struct iconView: View {
             .shadow(radius: 4)
         }
       
-//        .onChange(of: marketData) { newValue in
-//            if let url = self.marketData.getIconURL(){
-//                self.imageLoader.loadImage(with: url)
-//            }
-//                    }
-//        .onAppear {
-//            if let url = self.marketData.getIconURL(){
-//                self.imageLoader.loadImage(with: url)
-//            }
-//        }
+
+        .onChange(of: marketData) { oldValue, newValue in
+            if let url = newValue.getIconURL() {
+                imgURL = url
+               
+            }
+        }
+        .onAppear(){
+            if let url = self.marketData.getIconURL() {
+                imgURL = url
+               
+            }
+        }
     }
 }
 struct ContentView: View {
     @ObservedObject var viewModel: CryptoCurrencyViewModel = CryptoCurrencyViewModel()
-    @State var searchText = ""
+  
     
     @State var gColor: Color = Color(red: 229.0/255, green: 250.0/255, blue: 230.0/255, opacity: 0.6)
     @State var rColor: Color = Color(red: 252/255, green: 61/255, blue: 1/255, opacity: 0.5)
@@ -109,7 +142,8 @@ struct ContentView: View {
                 HStack(spacing: 2){
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
-                    TextField("Search Cryptocurrency here..", text: $searchText)
+                    
+                    TextField("Search  by name or symbol here..", text: $viewModel.searhText)
                 }
                 .background{
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -148,11 +182,32 @@ struct ContentView: View {
             }
             VStack{
                     HStack{
-                        if viewModel.bitCoinData != nil{
-                            iconView(marketData: viewModel.bitCoinData!)
+                        if viewModel.bitCoinData?.getIconURL() != nil{
+                            AsyncImage(url: viewModel.bitCoinData?.getIconURL()) { phase in
+                                            switch phase {
+                                            case .empty:
+                                                ProgressView()
+                                            case .success(let image):
+                                                image
+                                                    .resizable()
+                                                    .scaledToFit()
+                                            case .failure:
+                                                Image(systemName: "photo")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .foregroundColor(.red)
+                                            @unknown default:
+                                                EmptyView()
+                                            }
+                                        }
+                           // iconView(marketData: viewModel.bitCoinData!)
+                           
                             .frame(width: 55, height: 55)
-                            .padding(.leading,15)
+                            //.padding(.leading,15)
+                            .overlay(Circle().stroke((viewModel.bitCoinData?.quote?.usd!.isPercentageChange24HNegative())! ? Color.red : Color.green, lineWidth: 4))
+                            .padding(.leading,5)
                              }
+                            
                         
                     VStack{
                         Text(viewModel.bitCoinData?.symbol ?? "No bitcoin data")
@@ -201,12 +256,15 @@ struct ContentView: View {
             }
             if !viewModel.bitCoinDataRecords.isEmpty{
                 ScrollView(.vertical){
-                    ForEach((1...(viewModel.bitCoinDataRecords.count )), id: \.self) { indx in
-                        ListCellView(marketData: viewModel.bitCoinDataRecords[indx-1])
+                    
+                    ForEach(viewModel.bitCoinDataRecords , id: \.id) { mrkData in
+                       
+                        ListCellView(viewModel: viewModel,marketData: mrkData)
                             .frame( height: 90)
                             .padding(.leading, 5)
                     }
                 }
+            
             }
             Spacer()
             HStack{
