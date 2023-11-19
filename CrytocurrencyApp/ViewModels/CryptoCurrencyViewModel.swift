@@ -179,7 +179,7 @@ class CryptoCurrencyViewModel:ObservableObject, Identifiable {
             for data in records{
                 self.bitCoinDataRecords.append(data)
             }
-            print(self.bitCoinDataRecords)
+           // print(self.bitCoinDataRecords)
            
         }
     }
@@ -194,7 +194,7 @@ class CryptoCurrencyViewModel:ObservableObject, Identifiable {
             for data in records{
                 self.bitCoinDataRecords.append(data)
             }
-            print(self.bitCoinDataRecords)
+           // print(self.bitCoinDataRecords)
         }
     }
     func filterByVolume24H(){
@@ -208,7 +208,7 @@ class CryptoCurrencyViewModel:ObservableObject, Identifiable {
             for data in records{
                 self.bitCoinDataRecords.append(data)
             }
-            print(self.bitCoinDataRecords)
+           // print(self.bitCoinDataRecords)
         }
     }
 }

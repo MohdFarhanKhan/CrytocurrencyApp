@@ -255,17 +255,18 @@ struct ContentView: View {
                 .foregroundColor(.gray)
             }
             if !viewModel.bitCoinDataRecords.isEmpty{
-                ScrollView(.vertical){
+                ScrollView{
                     
                     ForEach(viewModel.bitCoinDataRecords , id: \.id) { mrkData in
                        
                         ListCellView(viewModel: viewModel,marketData: mrkData)
-                            .frame( height: 90)
+                            .frame( height: 80)
                             .padding(.leading, 5)
                     }
                 }
-            
+                .frame(minHeight: 80)
             }
+                
             Spacer()
             HStack{
                 Button {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B1D11C52B09EAB800FDAB3A /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D11C42B09EAB800FDAB3A /* SplashScreen.swift */; };
 		7B8874D22B05E68800126CD0 /* CrytocurrencyAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8874D12B05E68800126CD0 /* CrytocurrencyAppApp.swift */; };
 		7B8874D42B05E68800126CD0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8874D32B05E68800126CD0 /* ContentView.swift */; };
 		7B8874D62B05E68A00126CD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B8874D52B05E68A00126CD0 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B1D11C42B09EAB800FDAB3A /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		7B8874CE2B05E68700126CD0 /* CrytocurrencyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrytocurrencyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B8874D12B05E68800126CD0 /* CrytocurrencyAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrytocurrencyAppApp.swift; sourceTree = "<group>"; };
 		7B8874D32B05E68800126CD0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				7B8874FB2B05EA1400126CD0 /* Utility */,
 				7B8874D12B05E68800126CD0 /* CrytocurrencyAppApp.swift */,
 				7B8874D32B05E68800126CD0 /* ContentView.swift */,
+				7B1D11C42B09EAB800FDAB3A /* SplashScreen.swift */,
 				7B8874D52B05E68A00126CD0 /* Assets.xcassets */,
 				7B8874D72B05E68A00126CD0 /* Preview Content */,
 			);
@@ -302,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B1D11C52B09EAB800FDAB3A /* SplashScreen.swift in Sources */,
 				7B8874D42B05E68800126CD0 /* ContentView.swift in Sources */,
 				7B8875042B05F1AE00126CD0 /* HTTPUtility.swift in Sources */,
 				7B8874D22B05E68800126CD0 /* CrytocurrencyAppApp.swift in Sources */,
